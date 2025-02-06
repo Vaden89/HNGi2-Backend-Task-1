@@ -6,7 +6,7 @@ This is a public api for retrieving basic facts about a number, was created in f
 
 If you would like to run this project locally you would need to carry out the following steps:
 
-1. Open your terminal and run `git clone https://github.com/Vaden89/HNGi2-Backend-Task-0.git`
+1. Open your terminal and run `git clone https://github.com/Vaden89/HNGi2-Backend-Task-1.git`
 2. Cd into the clone repository
 3. Run `npm install` to install all dependencies
 4. Create and ENV file and specify "PORT"
