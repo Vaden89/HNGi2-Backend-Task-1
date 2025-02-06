@@ -12,10 +12,17 @@ app.get("/api/classify-number", async (req, res) => {
 
   if (!number) {
     res.status(400).json({
-      number: "alphabet",
+      number: req.query.number,
       error: true,
     });
     return;
+  }
+
+  if (number < 0) {
+    return res.status(400).json({
+      number,
+      error: true,
+    });
   }
 
   try {
