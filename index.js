@@ -1,21 +1,25 @@
 import express from "express";
+import cors from "cors"; // Import CORS middleware
 import { isPrime } from "./utils/isPrime.js";
 import { isPerfect } from "./utils/isPerfect.js";
 import { digitSum } from "./utils/digitSum.js";
 import { FactService } from "./services/fact.service.js";
 import { getProperties } from "./utils/properties.js";
-const app = express(express.json());
-const PORT = process.env.PORT;
+
+const app = express();
+const PORT = process.env.PORT || 3000; // Default to port 3000 if not provided
+
+app.use(cors()); // Enable CORS for all routes
+app.use(express.json()); // Fix express.json() usage
 
 app.get("/api/classify-number", async (req, res) => {
   const number = Number(req.query.number);
 
-  if (!number) {
-    res.status(400).json({
+  if (isNaN(number)) {
+    return res.status(400).json({
       number: "alphabet",
       error: true,
     });
-    return;
   }
 
   if (number < 0) {
