@@ -10,6 +10,14 @@ const PORT = process.env.PORT;
 app.get("/api/classify-number", async (req, res) => {
   const number = Number(req.query.number);
 
+  if (!number) {
+    res.status(400).json({
+      number: "alphabet",
+      error: true,
+    });
+    return;
+  }
+
   try {
     res.status(200).json({
       number: number,
