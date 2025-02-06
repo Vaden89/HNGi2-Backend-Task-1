@@ -7,22 +7,24 @@ import { FactService } from "./services/fact.service.js";
 import { getProperties } from "./utils/properties.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Default to port 3000 if not provided
+const PORT = process.env.PORT;
 
-app.use(cors()); // Enable CORS for all routes
-app.use(express.json()); // Fix express.json() usage
+app.use(cors());
+app.use(express.json());
 
 app.get("/api/classify-number", async (req, res) => {
-  const number = Number(req.query.number);
+  const { number: numberStr } = req.query;
 
-  if (isNaN(number)) {
+  if (!numberStr || numberStr.trim() === "") {
     return res.status(400).json({
-      number: "alphabet",
+      number: "",
       error: true,
     });
   }
 
-  if (number < 0) {
+  const number = Number(numberStr);
+
+  if (!number) {
     return res.status(400).json({
       number: "alphabet",
       error: true,
@@ -32,10 +34,10 @@ app.get("/api/classify-number", async (req, res) => {
   try {
     res.status(200).json({
       number: number,
-      is_prime: isPrime(number),
-      is_perfect: isPerfect(number),
-      properties: getProperties(number),
-      digit_sum: digitSum(number),
+      is_prime: isPrime(Math.abs(number)),
+      is_perfect: isPerfect(Math.abs(number)),
+      properties: getProperties(Math.abs(number)),
+      digit_sum: digitSum(Math.abs(number)),
       fun_fact: await FactService.getFunFact(number),
     });
   } catch (error) {
