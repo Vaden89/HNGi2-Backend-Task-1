@@ -34,7 +34,7 @@ app.get("/api/classify-number", async (req, res) => {
   try {
     res.status(200).json({
       number: number,
-      is_prime: isPrime(Math.abs(number)),
+      is_prime: isPrime(number),
       is_perfect: isPerfect(Math.abs(number)),
       properties: getProperties(Math.abs(number)),
       digit_sum: digitSum(Math.abs(number)),
