@@ -17,7 +17,7 @@ app.get("/api/classify-number", async (req, res) => {
 
   if (!numberStr || numberStr.trim() === "") {
     return res.status(400).json({
-      number: "alphabet",
+      numberStr,
       error: true,
     });
   }
@@ -26,7 +26,7 @@ app.get("/api/classify-number", async (req, res) => {
 
   if (!number) {
     return res.status(400).json({
-      number: "alphabet",
+      numberStr,
       error: true,
     });
   }
